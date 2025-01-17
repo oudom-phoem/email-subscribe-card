@@ -42,8 +42,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-         # Include src and images directories
-          path: './src ./images' # Ensure the correct folder is deployed
+          # Include src and images directories
+          path: './src ./images'
 
       - name: Deploy to GitHub Pages
         id: deployment
