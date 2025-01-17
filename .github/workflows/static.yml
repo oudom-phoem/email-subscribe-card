@@ -15,8 +15,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Prevent multiple deployments from running simultaneously
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -42,16 +41,20 @@ jobs:
       - name: Build TailwindCSS
         run: npm run build
 
+      - name: Copy assets
+        run: |
+          mkdir -p ./build
+          cp -r ./src/* ./build/
+          cp -r ./images ./build/
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Include both src and images directories
-          path: |
-            ./src
-            ./images
+          # Deploy the build directory containing src and images
+          path: './build'
 
       - name: Deploy to GitHub Pages
         id: deployment
