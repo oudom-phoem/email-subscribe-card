@@ -1,3 +1,20 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   deploy:
     environment:
@@ -25,8 +42,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Include src and images directories
-          path: './src ./images'
+         # Include src and images directories
+          path: './src ./images' # Ensure the correct folder is deployed
 
       - name: Deploy to GitHub Pages
         id: deployment
