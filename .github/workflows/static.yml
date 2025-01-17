@@ -31,21 +31,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Move files to root
-        run: |
-          # Move the contents of the src folder to the root
-          mv src/* .
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the current directory (which now contains the files from src)
-          path: '.'
-
+          # Specify the src folder containing index.html
+          path: './src'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
